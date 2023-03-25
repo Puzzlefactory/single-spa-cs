@@ -77,25 +77,25 @@ React is a commonly used framework and has taken the lead in the framework wars.
 
 ### Select the single-spa application / parcel option
 
-![image-20230325155053650](./image-20230325155053650.png)
+![image-20230325155053650](img/image-20230325155053650.png)
 
 ### Select the React option
 
-![image-20230325155159551](./image-20230325155159551.png)
+![image-20230325155159551](img/image-20230325155159551.png)
 
 ### Select the package manager
 
 In this case I selected npm
 
-![image-20230325155251410](./image-20230325155251410.png)
+![image-20230325155251410](img/image-20230325155251410.png)
 
 ### Select if you want to use Typescript
 
-![image-20230325155349041](./image-20230325155349041.png)
+![image-20230325155349041](img/image-20230325155349041.png)
 
 ### Enter an organization name
 
-![image-20230325155441314](./image-20230325155441314.png)
+![image-20230325155441314](img/image-20230325155441314.png)
 
 ### Finally enter a project name
 
@@ -111,21 +111,21 @@ Once the React MFE is set up and running it must be added to the shell. It can a
 
 This will make the MFE available to load
 
-![image-20230325173641937](./image-20230325173641937.png)
+![image-20230325173641937](img/image-20230325173641937.png)
 
 #### Loading the React MFE
 
 To make the MFE load, we will use the **microfrontend-layout.html** since we chose to use the layout engine when creating the shell. The layout.html can be named anything but we used the default name
 
-![image-20230325174116710](./image-20230325174116710.png)
+![image-20230325174116710](img/image-20230325174116710.png)
 
 Here we create a route for the React application, in this case called Deals
 
-![image-20230325174333483](./image-20230325174333483.png)
+![image-20230325174333483](img/image-20230325174333483.png)
 
 #### Run the shell application and the React application, in this case deals, enter /deals into the browser and the React app should show
 
-![image-20230325174513062](./image-20230325174513062.png)
+![image-20230325174513062](img/image-20230325174513062.png)
 
 ## How to setup a Utilities bundle
 
@@ -137,23 +137,23 @@ Keep in mind, the strength of the MFE architecture is each MFE is a separate, in
 
 ### Run the command `npx create-single-spa`
 
-![image-20230325163120713](./image-20230325163120713.png)
+![image-20230325163120713](img/image-20230325163120713.png)
 
 ### Next select the `in-browser utility module (style guide, api, cache, etc)` option 
 
-![image-20230325163333084](./image-20230325163333084.png)
+![image-20230325163333084](img/image-20230325163333084.png)
 
 ### You can choose a framework for this option or select none. I went with none for this guide
 
-![image-20230325163451605](./image-20230325163451605.png)
+![image-20230325163451605](img/image-20230325163451605.png)
 
 ### Select a package manager, went with npm again to be consistent. If you are using a mono repo this is more important than if you are using separate repos which is the standard setup
 
-![image-20230325163645074](./image-20230325163645074.png)
+![image-20230325163645074](img/image-20230325163645074.png)
 
 ### Select if you want to use Typescript
 
-![image-20230325163736194](./image-20230325163736194.png)
+![image-20230325163736194](img/image-20230325163736194.png)
 
 ### Enter organization name as in previous steps
 
@@ -167,31 +167,31 @@ Keep in mind, the strength of the MFE architecture is each MFE is a separate, in
 
 Add the utilities bundle as you would another MFE into the inport maps on the shell ejs file
 
-![image-20230325170833010](./image-20230325170833010.png)
+![image-20230325170833010](img/image-20230325170833010.png)
 
 ### Set the bundle as an external in the web pack.config.js
 
 This will need to be done for every MFE that is to use the utilities so Webpack will know any references are external so it will look for them and load them using Module Federation. 
 
-![image-20230325171259223](./image-20230325171259223.png)
+![image-20230325171259223](img/image-20230325171259223.png)
 
 ### Export anything you wish to be external in the utilites from main js file
 
-![image-20230325172424915](./image-20230325172424915.png)
+![image-20230325172424915](img/image-20230325172424915.png)
 
 A simple function with a console log is exported in this example. It can be anything including various node libraries, JS modules, etc
 
-![image-20230325172730026](./image-20230325172730026.png)
+![image-20230325172730026](img/image-20230325172730026.png)
 
 ### Import into your project what you want to use from the utilties as you would import normally. 
 
 In many IDEs, code completion may not pick up the external library and give you code completion however GitHub CoPilot seems to do a fair job at it.
 
-![image-20230325172828116](./image-20230325172828116.png)
+![image-20230325172828116](img/image-20230325172828116.png)
 
 The console log showing in the browser
 
-![image-20230325172938806](./image-20230325172938806.png)
+![image-20230325172938806](img/image-20230325172938806.png)
 
 ### Notes
 
