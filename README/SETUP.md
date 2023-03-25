@@ -1,4 +1,4 @@
-# Example project for Connected Showroom
+# Example project for Connected Showroom using single-spa
 
 This project loads a series of Micro Frontends using different frameworks. It is to demonstrate how to set up the Connected Showroom application and unify the U.S. code line and the BR code line.
 
@@ -102,4 +102,34 @@ In this case I selected npm
 After pressing `ENTER` the project build process will start and npm will install the dependencies.
 
 ### Reconfigure husky like you did for the root config if you have a custom placement for .git directory 
+
+## How to setup a Utilities bundle
+
+### Run the command `npx create-single-spa`
+
+![image-20230325163120713](./image-20230325163120713.png)
+
+### Next select the `in-browser utility module (style guide, api, cache, etc)` option 
+
+![image-20230325163333084](./image-20230325163333084.png)
+
+### You can choose a framework for this option or select none. I went with none for this guide
+
+![image-20230325163451605](./image-20230325163451605.png)
+
+### Select a package manager, went with npm again to be consistent. If you are using a mono repo this is more important than if you are using separate repos which is the standard setup
+
+![image-20230325163645074](./image-20230325163645074.png)
+
+### Select if you want to use Typescript
+
+![image-20230325163736194](./image-20230325163736194.png)
+
+### Enter organization name as in previous steps
+
+### Enter the project name,  I chose utilities
+
+### Set up husky as in previous examples
+
+
 
