@@ -5,6 +5,9 @@ import {
   constructLayoutEngine,
 } from "single-spa-layout";
 import microfrontendLayout from "./microfrontend-layout.html";
+import {publicApiFunction} from "@gm-dsaw/utilities";
+
+publicApiFunction();
 
 const routes = constructRoutes(microfrontendLayout);
 const applications = constructApplications({

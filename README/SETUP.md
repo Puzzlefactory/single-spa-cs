@@ -105,6 +105,12 @@ After pressing `ENTER` the project build process will start and npm will install
 
 ## How to setup a Utilities bundle
 
+A utilities bundle or project is a way to share libraries, styles, or components across applications so they are only ever loaded once. 
+
+You can consider a utilities bundle as a gateway to all the other libraries you may use or to share common functions, APIs, etc across all MFEs. Do keep in mind, however, you should try to keep each MFE encapsulated as much as possible. Too much shared code across MFEs or MFEs that know too much about others can lead to dependencies that will make the pattern less effective.
+
+Keep in mind, the strength of the MFE architecture is each MFE is a separate, independently deployable application. 
+
 ### Run the command `npx create-single-spa`
 
 ![image-20230325163120713](./image-20230325163120713.png)
@@ -131,5 +137,17 @@ After pressing `ENTER` the project build process will start and npm will install
 
 ### Set up husky as in previous examples
 
+## Add the Utilites project to the application
 
+### Add the utilties to the index.ejs file import map
+
+Add the utilities bundle as you would another MFE into the inport maps on the shell ejs file
+
+![image-20230325170833010](./image-20230325170833010.png)
+
+### Set the bundle as an external in the web pack.config.js
+
+This will need to be done for every MFE that is to use the utilities so Webpack will know any references are external so it will look for them and load them using Module Federation. 
+
+![image-20230325171259223](./image-20230325171259223.png)
 
