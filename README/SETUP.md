@@ -103,6 +103,30 @@ After pressing `ENTER` the project build process will start and npm will install
 
 ### Reconfigure husky like you did for the root config if you have a custom placement for .git directory 
 
+### Add the React project to the shell
+
+Once the React MFE is set up and running it must be added to the shell. It can also be run stand alone but that is another section
+
+#### Add the MFE to the shell/src/index.ejs import maps
+
+This will make the MFE available to load
+
+![image-20230325173641937](./image-20230325173641937.png)
+
+#### Loading the React MFE
+
+To make the MFE load, we will use the **microfrontend-layout.html** since we chose to use the layout engine when creating the shell. The layout.html can be named anything but we used the default name
+
+![image-20230325174116710](./image-20230325174116710.png)
+
+Here we create a route for the React application, in this case called Deals
+
+![image-20230325174333483](./image-20230325174333483.png)
+
+#### Run the shell application and the React application, in this case deals, enter /deals into the browser and the React app should show
+
+![image-20230325174513062](./image-20230325174513062.png)
+
 ## How to setup a Utilities bundle
 
 A utilities bundle or project is a way to share libraries, styles, or components across applications so they are only ever loaded once. 
@@ -151,3 +175,28 @@ This will need to be done for every MFE that is to use the utilities so Webpack 
 
 ![image-20230325171259223](./image-20230325171259223.png)
 
+### Export anything you wish to be external in the utilites from main js file
+
+![image-20230325172424915](./image-20230325172424915.png)
+
+A simple function with a console log is exported in this example. It can be anything including various node libraries, JS modules, etc
+
+![image-20230325172730026](./image-20230325172730026.png)
+
+### Import into your project what you want to use from the utilties as you would import normally. 
+
+In many IDEs, code completion may not pick up the external library and give you code completion however GitHub CoPilot seems to do a fair job at it.
+
+![image-20230325172828116](./image-20230325172828116.png)
+
+The console log showing in the browser
+
+![image-20230325172938806](./image-20230325172938806.png)
+
+### Notes
+
+* Any utility set up in this manner is in fact a MFE itself, however its purpose is to provide resources
+* Only exported members, exported from the root js file found in the src directory will be discoverable. 
+* When adding the utility to other MFEs, remember to not only add the import internally but also to do the webpack.config.js step, to add it to externals
+
+ 
