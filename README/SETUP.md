@@ -73,3 +73,33 @@ You may find, depending on your Windows setup you will also need to set the file
 
 React is a commonly used framework and has taken the lead in the framework wars. The advantages of a low threshold to start and fast time-to-market has made it the most popular framework to date.
 
+### Run the command `npx create-single-spa`
+
+### Select the single-spa application / parcel option
+
+![image-20230325155053650](./image-20230325155053650.png)
+
+### Select the React option
+
+![image-20230325155159551](./image-20230325155159551.png)
+
+### Select the package manager
+
+In this case I selected npm
+
+![image-20230325155251410](./image-20230325155251410.png)
+
+### Select if you want to use Typescript
+
+![image-20230325155349041](./image-20230325155349041.png)
+
+### Enter an organization name
+
+![image-20230325155441314](./image-20230325155441314.png)
+
+### Finally enter a project name
+
+After pressing `ENTER` the project build process will start and npm will install the dependencies.
+
+### Reconfigure husky like you did for the root config if you have a custom placement for .git directory 
+
