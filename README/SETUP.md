@@ -210,206 +210,6 @@ The console log showing in the browser
 
 ---
 
-## Adding an Angular Project Using the create-single-spa app
-
-### Run the `npx create-single-spa` command and select the `single-spa applicaiton / parcel` choice after naming the directory
-
-![image-20230326102440729](img/image-20230326102440729.png)
-
-### Select Angular as the framework
-
-![image-20230326102630489](img/image-20230326102630489.png)
-
-### Follow the next step to enter a project name
-
-### If you want routing in the Angular application choose that option
-
-![image-20230326102811756](img/image-20230326102811756.png)
-
-### Pick the style setting for Angular
-
-![image-20230326102912814](img/image-20230326102912814.png)
-
-After this, when you hit enter, the @angular/cli will take over and buid an Angular application. When this is completed proceed to the next step
-
-### Either run the schematic for single-spa or do a manual setup.
-
-![image-20230326103205260](img/image-20230326103205260.png)
-
-For me the schematic has never completed successfully, but it does a lot of setup so I still run it. Later updates might fix this, hopefully. If it ever works, I will add those steps here, but for now the next step is if the schematic fails
-
-### If the schematic fails instead try the next section
-
-![image-20230326103355326](img/image-20230326103355326.png)
-
-## Create Angular Project manually
-
-### Create an Angular application using the @angular/cli `ng new vehicles --routing true --style scss`
-
-This wil create an Angular application with routing and using SASS. You can set these to anything you normally would use
-
-### Install [@angular-builders/custom-webpack](https://www.npmjs.com/package/@angular-builders/custom-webpack) using the command `npm i -D @angular-builders/custom-webpack`
-
-### Install single-spa `npm i single-spa single-spa-angular`
-
-### Add a custom Webpack config file:
-
-#### Create a JavaScript file and name it `extra-webpack.config.js`
-
-```javascript
-const singleSpaAngularWebpack =
-  require("single-spa-angular/lib/webpack").default;
-
-module.exports = (config, options) => {
-  const singleSpaWebpackConfig = singleSpaAngularWebpack(config, options);
-
-  // Feel free to modify this webpack config however you'd like to
-  return singleSpaWebpackConfig;
-};
-```
-
-### Update the angular.json to use the builder
-
-The below areas the default Angular builder needs to be replaced with the `@angular-builders/custom-webpack` builder.
-
-![image-20230326112132468](img/image-20230326112132468.png)
-
-#### architect.build.builder
-
-#### architect.serve.builder
-
-#### architect.extract-i18n.builder
-
-#### architect.test.builder
-
-### The end product should be all builders are replaced
-
-![image-20230326112612731](img/image-20230326112612731.png)
-
-You can do this with a find/replace: **Find**: `@angular-devkit/build-angular` **Replace** `@angular-builders/custom-webpack`
-
-### Create a new Typescript file in `src` and name it main.single-spa.ts
-
-![image-20230326113853420](img/image-20230326113853420.png)
-
-### Place this code in the main.single-spa.ts file
-
-```typescript
-import { enableProdMode, NgZone } from "@angular/core";
-
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { Router, NavigationStart } from "@angular/router";
-
-import {
-  singleSpaAngular,
-  getSingleSpaExtraProviders,
-} from "single-spa-angular";
-
-import { AppModule } from "./app/app.module";
-import { environment } from "./environments/environment";
-import { singleSpaPropsSubject } from "./single-spa/single-spa-props";
-
-if (environment.production) {
-  enableProdMode();
-}
-
-const lifecycles = singleSpaAngular({
-  bootstrapFunction: (singleSpaProps) => {
-    singleSpaPropsSubject.next(singleSpaProps);
-    return platformBrowserDynamic(getSingleSpaExtraProviders()).bootstrapModule(
-      AppModule
-    );
-  },
-  template: "<app-root />",
-  Router,
-  NavigationStart,
-  NgZone,
-});
-
-export const bootstrap = lifecycles.bootstrap;
-export const mount = lifecycles.mount;
-export const unmount = lifecycles.unmount;
-```
-
-This is the main code to add the Angular application to single-spa. I have not done a standalone components project yet so this is using Angular modules.
-
-### Set Angular to use the main.single-spa.ts in place of main.ts
-
-![image-20230326123317654](img/image-20230326123317654.png)
-
-### Add the main.single-spa.ts to your `tsconfig.app.json`
-
-```json
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": []
-  },
-  "files": ["src/main.single-spa.ts"],
-  "include": ["src/**/*.d.ts"]
-}
-```
-
-### Add the single-spa setup files
-
-#### Create a directory in the root of src and name it single-spa
-
-![image-20230326122637796](img/image-20230326122637796.png)
-
-#### Add a Typescript file to `src/single-spa/single-spa-props.ts`
-
-```typescript
-import { ReplaySubject } from "rxjs";
-import { AppProps } from "single-spa";
-
-export const singleSpaPropsSubject = new ReplaySubject<SingleSpaProps>(1);
-
-// Add any custom single-spa props you have to this type def
-// https://single-spa.js.org/docs/building-applications.html#custom-props
-export type SingleSpaProps = AppProps & {};
-```
-
-#### Next create a file `src/single-spa/asset-url.ts
-
-```typescript
-// In single-spa, the assets need to be loaded from a dynamic location,
-// instead of hard coded to `/assets`. We use webpack public path for this.
-// See https://webpack.js.org/guides/public-path/#root
-
-export function assetUrl(url: string): string {
-  // @ts-ignore
-  const publicPath = __webpack_public_path__;
-  const publicPathSuffix = publicPath.endsWith("/") ? "" : "/";
-  const urlPrefix = url.startsWith("/") ? "" : "/";
-
-  return `${publicPath}${publicPathSuffix}assets${urlPrefix}${url}`;
-}
-```
-
-### Add environment files if you need them
-
-> Environment files are not required and can be left off but if you need them for your project then you will need to add them as of Angular 15 they are not automatically generated. You will also need to add them to the angular.json
-
-#### For environment/environment.prod.ts
-
-```typescript
-export const environment = {
-  production: true,
-};
-```
-
-#### For environment/environment.ts
-
-```typescript
-export const environment = {
-  production: false,
-};
-```
-
----
-
 ## Angular Project
 
 ### Create a new Angular project using the `@angular/cli` `ng new vehicles --routing true --style scss --prefix csv`
@@ -495,7 +295,7 @@ This does not include that files that have to be manually added in the above pro
 
 ##### The main file is changed from src/main.ts to src/main.single-spa.ts
 
-![image-20230326162129931](./image-20230326162129931.png)
+![image-20230326162129931](img/image-20230326162129931.png)
 
 ##### The builders are set to @angular-builders/custom-webpack from @angular-devkit/build-angular
 
@@ -503,15 +303,15 @@ This does not include that files that have to be manually added in the above pro
 
 #### In the architect.build.options section two new options are added below the scripts option:
 
-![image-20230326161309100](./image-20230326161309100.png)
+![image-20230326161309100](img/image-20230326161309100.png)
 
 ##### outputHashing is set to "none" for both production and development configurations
 
-![image-20230326161826763](./image-20230326161826763.png)
+![image-20230326161826763](img/image-20230326161826763.png)
 
 ##### tsconfig.app.json is changed to also point at src/main.single-spa.ts
 
-![image-20230326162327054](./image-20230326162327054.png)
+![image-20230326162327054](img/image-20230326162327054.png)
 
 ### New files added
 
