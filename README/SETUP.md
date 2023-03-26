@@ -420,6 +420,48 @@ export const environment = {
 
 > This will change several files.
 
+### Generate environment files if you plan to use them (Angular > 14) using `ng g environments`
+
+This will only partially do what you need for environment files in this use case. It will add the file replacements in angular.json but you will need to add a swap if you wish something to change for production
+
+#### Add the properties you need in the environments files
+
+For setting up single-spa you will need to add a flag production to both environments.development.ts and environments.ts.
+
+```typescript
+export const environment = {
+  production: true,
+};
+```
+
+### Manual setup of environment files
+
+You can copy the environment files directory over directly from an older project but you must rename them and them up to be swapped in the development configuration in angular.json
+
+#### environment.ts (in older Angular projects: environment.prod.ts)
+
+```typescript
+export const environment = {
+  production: true,
+};
+```
+
+#### environment.development.ts (in older Angular projects: environment.ts )
+
+```typescript
+export const environment = {
+  production: false,
+};
+```
+
+### If the project has routing some additional steps need to be taken and files added
+
+#### Configure routes in app-routing.module.ts
+
+- Add `providers: [{ provide: APP_BASE_HREF, useValue: '/' }]` to the @NgModule config
+- In the routes, add a route to the EmptyRouteComponent added by the schematic `{ path: '**', component: EmptyRouteComponent }`
+- [For more information](https://single-spa.js.org/docs/ecosystem-angular/#routing)
+
 ---
 
 ## Angular Setup:What changed files and settings changed or were added
