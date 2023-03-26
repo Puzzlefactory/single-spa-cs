@@ -4,12 +4,15 @@ This project loads a series of Micro Frontends using different frameworks. It is
 
 Below are the documented steps as they are done
 
+---
+
 ## Create a ss root project
 
-### Run the command `npx create-single-spa` 
+### Run the command `npx create-single-spa`
+
 This will start the process to create the shell application
 
-### Select `single-spa root config` 
+### Select `single-spa root config`
 
 Usually the is named shell but you can name it what you wish
 
@@ -35,7 +38,7 @@ The layout engine facilitates routing, it also adds some server side rendering c
 
 ### Select and organization name
 
-This step requires a bit more thought because it can become tricky to change it later. It is not impossible but it is best to simply start with the organization name you want to use and save the effort 
+This step requires a bit more thought because it can become tricky to change it later. It is not impossible but it is best to simply start with the organization name you want to use and save the effort
 
 ![image-20230325101927306](img/image-20230325101927306.png)
 
@@ -69,6 +72,8 @@ If you are on a POSIX OS (Unix, Linux, MacOS) you will need to also set the file
 
 You may find, depending on your Windows setup you will also need to set the file to allow it to execute. This is an edge case however if you run into an issue where the git hooks do not run when you commit got to the pre-commit file, right click and go to properties. There you can set to allow the file to execute
 
+---
+
 ## Create a React project
 
 React is a commonly used framework and has taken the lead in the framework wars. The advantages of a low threshold to start and fast time-to-market has made it the most popular framework to date.
@@ -101,7 +106,7 @@ In this case I selected npm
 
 After pressing `ENTER` the project build process will start and npm will install the dependencies.
 
-### Reconfigure husky like you did for the root config if you have a custom placement for .git directory 
+### Reconfigure husky like you did for the root config if you have a custom placement for .git directory
 
 ### Add the React project to the shell
 
@@ -127,19 +132,21 @@ Here we create a route for the React application, in this case called Deals
 
 ![image-20230325174513062](img/image-20230325174513062.png)
 
+---
+
 ## How to setup a Utilities bundle
 
-A utilities bundle or project is a way to share libraries, styles, or components across applications so they are only ever loaded once. 
+A utilities bundle or project is a way to share libraries, styles, or components across applications so they are only ever loaded once.
 
 You can consider a utilities bundle as a gateway to all the other libraries you may use or to share common functions, APIs, etc across all MFEs. Do keep in mind, however, you should try to keep each MFE encapsulated as much as possible. Too much shared code across MFEs or MFEs that know too much about others can lead to dependencies that will make the pattern less effective.
 
-Keep in mind, the strength of the MFE architecture is each MFE is a separate, independently deployable application. 
+> Keep in mind, the strength of the MFE architecture is each MFE is a separate, independently deployable application.
 
 ### Run the command `npx create-single-spa`
 
 ![image-20230325163120713](img/image-20230325163120713.png)
 
-### Next select the `in-browser utility module (style guide, api, cache, etc)` option 
+### Next select the `in-browser utility module (style guide, api, cache, etc)` option
 
 ![image-20230325163333084](img/image-20230325163333084.png)
 
@@ -157,9 +164,11 @@ Keep in mind, the strength of the MFE architecture is each MFE is a separate, in
 
 ### Enter organization name as in previous steps
 
-### Enter the project name,  I chose utilities
+### Enter the project name, I chose utilities
 
 ### Set up husky as in previous examples
+
+---
 
 ## Add the Utilites project to the application
 
@@ -171,7 +180,7 @@ Add the utilities bundle as you would another MFE into the inport maps on the sh
 
 ### Set the bundle as an external in the web pack.config.js
 
-This will need to be done for every MFE that is to use the utilities so Webpack will know any references are external so it will look for them and load them using Module Federation. 
+This will need to be done for every MFE that is to use the utilities so Webpack will know any references are external so it will look for them and load them using Module Federation.
 
 ![image-20230325171259223](img/image-20230325171259223.png)
 
@@ -183,7 +192,7 @@ A simple function with a console log is exported in this example. It can be anyt
 
 ![image-20230325172730026](img/image-20230325172730026.png)
 
-### Import into your project what you want to use from the utilties as you would import normally. 
+### Import into your project what you want to use from the utilties as you would import normally.
 
 In many IDEs, code completion may not pick up the external library and give you code completion however GitHub CoPilot seems to do a fair job at it.
 
@@ -195,15 +204,17 @@ The console log showing in the browser
 
 ### Notes
 
-* Any utility set up in this manner is in fact a MFE itself, however its purpose is to provide resources
-* Only exported members, exported from the root js file found in the src directory will be discoverable. 
-* When adding the utility to other MFEs, remember to not only add the import internally but also to do the webpack.config.js step, to add it to externals
+- Any utility set up in this manner is in fact a MFE itself, however its purpose is to provide resources
+- Only exported members, exported from the root js file found in the src directory will be discoverable.
+- When adding the utility to other MFEs, remember to not only add the import internally but also to do the webpack.config.js step, to add it to externals
+
+---
 
 ## Adding an Angular Project Using the create-single-spa app
 
 ### Run the `npx create-single-spa` command and select the `single-spa applicaiton / parcel` choice after naming the directory
 
-![image-20230326102440729](img/image-20230326102440729.png) 
+![image-20230326102440729](img/image-20230326102440729.png)
 
 ### Select Angular as the framework
 
@@ -221,11 +232,11 @@ The console log showing in the browser
 
 After this, when you hit enter, the @angular/cli will take over and buid an Angular application. When this is completed proceed to the next step
 
-### Either run the schematic for single-spa or do a manual setup. 
+### Either run the schematic for single-spa or do a manual setup.
 
 ![image-20230326103205260](img/image-20230326103205260.png)
 
-For me the schematic has never completed successfully, but it does a lot of setup so I still run it. Later updates might fix this, hopefully.  If it ever works, I will add those steps here, but for now the next step is if the schematic fails
+For me the schematic has never completed successfully, but it does a lot of setup so I still run it. Later updates might fix this, hopefully. If it ever works, I will add those steps here, but for now the next step is if the schematic fails
 
 ### If the schematic fails instead try the next section
 
@@ -246,7 +257,8 @@ This wil create an Angular application with routing and using SASS. You can set 
 #### Create a JavaScript file and name it `extra-webpack.config.js`
 
 ```javascript
-const singleSpaAngularWebpack = require('single-spa-angular/lib/webpack').default;
+const singleSpaAngularWebpack =
+  require("single-spa-angular/lib/webpack").default;
 
 module.exports = (config, options) => {
   const singleSpaWebpackConfig = singleSpaAngularWebpack(config, options);
@@ -258,7 +270,7 @@ module.exports = (config, options) => {
 
 ### Update the angular.json to use the builder
 
-The below areas the default Angular builder needs to be replaced with the `@angular-builders/custom-webpack` builder. 
+The below areas the default Angular builder needs to be replaced with the `@angular-builders/custom-webpack` builder.
 
 ![image-20230326112132468](img/image-20230326112132468.png)
 
@@ -283,28 +295,32 @@ You can do this with a find/replace: **Find**: `@angular-devkit/build-angular` *
 ### Place this code in the main.single-spa.ts file
 
 ```typescript
-import { enableProdMode, NgZone } from '@angular/core';
+import { enableProdMode, NgZone } from "@angular/core";
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { Router, NavigationStart } from '@angular/router';
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { Router, NavigationStart } from "@angular/router";
 
-import { singleSpaAngular, getSingleSpaExtraProviders } from 'single-spa-angular';
+import {
+  singleSpaAngular,
+  getSingleSpaExtraProviders,
+} from "single-spa-angular";
 
-
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-import { singleSpaPropsSubject } from './single-spa/single-spa-props';
+import { AppModule } from "./app/app.module";
+import { environment } from "./environments/environment";
+import { singleSpaPropsSubject } from "./single-spa/single-spa-props";
 
 if (environment.production) {
   enableProdMode();
 }
 
 const lifecycles = singleSpaAngular({
-  bootstrapFunction: singleSpaProps => {
+  bootstrapFunction: (singleSpaProps) => {
     singleSpaPropsSubject.next(singleSpaProps);
-    return platformBrowserDynamic(getSingleSpaExtraProviders()).bootstrapModule(AppModule);
+    return platformBrowserDynamic(getSingleSpaExtraProviders()).bootstrapModule(
+      AppModule
+    );
   },
-  template: '<app-root />',
+  template: "<app-root />",
   Router,
   NavigationStart,
   NgZone,
@@ -315,7 +331,7 @@ export const mount = lifecycles.mount;
 export const unmount = lifecycles.unmount;
 ```
 
-This is the main code to add the Angular application to single-spa. I have not done a standalone components project yet so this is using Angular modules. 
+This is the main code to add the Angular application to single-spa. I have not done a standalone components project yet so this is using Angular modules.
 
 ### Set Angular to use the main.single-spa.ts in place of main.ts
 
@@ -331,12 +347,8 @@ This is the main code to add the Angular application to single-spa. I have not d
     "outDir": "./out-tsc/app",
     "types": []
   },
-  "files": [
-    "src/main.single-spa.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
-  ]
+  "files": ["src/main.single-spa.ts"],
+  "include": ["src/**/*.d.ts"]
 }
 ```
 
@@ -349,8 +361,8 @@ This is the main code to add the Angular application to single-spa. I have not d
 #### Add a Typescript file to `src/single-spa/single-spa-props.ts`
 
 ```typescript
-import { ReplaySubject } from 'rxjs';
-import { AppProps } from 'single-spa';
+import { ReplaySubject } from "rxjs";
+import { AppProps } from "single-spa";
 
 export const singleSpaPropsSubject = new ReplaySubject<SingleSpaProps>(1);
 
@@ -369,8 +381,8 @@ export type SingleSpaProps = AppProps & {};
 export function assetUrl(url: string): string {
   // @ts-ignore
   const publicPath = __webpack_public_path__;
-  const publicPathSuffix = publicPath.endsWith('/') ? '' : '/';
-  const urlPrefix = url.startsWith('/') ? '' : '/';
+  const publicPathSuffix = publicPath.endsWith("/") ? "" : "/";
+  const urlPrefix = url.startsWith("/") ? "" : "/";
 
   return `${publicPath}${publicPathSuffix}assets${urlPrefix}${url}`;
 }
@@ -378,13 +390,13 @@ export function assetUrl(url: string): string {
 
 ### Add environment files if you need them
 
-Environment files are not required and can be left off but if you need them for your project then you will need to add them as of Angular 15 they are not automatically generated. You will also need to add them to the angular.json
+> Environment files are not required and can be left off but if you need them for your project then you will need to add them as of Angular 15 they are not automatically generated. You will also need to add them to the angular.json
 
-#### For environment/environment.prod.ts 
+#### For environment/environment.prod.ts
 
 ```typescript
 export const environment = {
-  production: true
+  production: true,
 };
 ```
 
@@ -392,18 +404,166 @@ export const environment = {
 
 ```typescript
 export const environment = {
-  production: false
+  production: false,
 };
 ```
 
-
+---
 
 ## Angular Project
 
 ### Create a new Angular project using the `@angular/cli` `ng new vehicles --routing true --style scss --prefix csv`
 
-#### Notes
+> **Note** It is important to give the Angular project a prefix that will be unique to that project so Angular components don't overwrite each other
 
-* It is important to give the Angular project a prefix that will be unique to that project so Angular components don't overwrite each other
-* If you are adding a project that is above Angular 14 you must specify the Angular project name since that has been removed from the angular.json file
-* 
+### Next cd into the project directory and then run the Angular schematic `ng add single-spa-angular --project my-cool-app`
+
+> This will change several files.
+
+---
+
+## Angular Setup:What changed files and settings changed or were added
+
+When the single-spa-angular schematic is run and finishes correctly these files are changed in a new project. This information can help when it comes to migrating an existing project to a single-spa MFE.
+
+This does not include that files that have to be manually added in the above process
+
+### Files that changed
+
+#### package.json
+
+##### Dependencies
+
+- single-spa
+- single-spa-angular
+
+##### devDependencies
+
+- @angular-builders/custom-webpack
+- style-loader
+
+##### Scripts added
+
+```JSON
+"build:single-spa:vehicles": "ng build vehicles --configuration production",
+"serve:single-spa:vehicles": "ng s --project vehicles --disable-host-check --port 5201 --live-reload false"
+```
+
+#### angular.json
+
+##### The main file is changed from src/main.ts to src/main.single-spa.ts
+
+![image-20230326162129931](./image-20230326162129931.png)
+
+##### The builders are set to @angular-builders/custom-webpack from @angular-devkit/build-angular
+
+![image-20230326112612731](/Users/seimei/local-projects/JavaScript/single-spa-cs/README/image-20230326112612731.png)
+
+#### In the architect.build.options section two new options are added below the scripts option:
+
+![image-20230326161309100](./image-20230326161309100.png)
+
+##### outputHashing is set to "none" for both production and development configurations
+
+![image-20230326161826763](./image-20230326161826763.png)
+
+##### tsconfig.app.json is changed to also point at src/main.single-spa.ts
+
+![image-20230326162327054](./image-20230326162327054.png)
+
+### New files added
+
+#### extra-web pack.config.js
+
+```javascript
+const singleSpaAngularWebpack =
+  require("single-spa-angular/lib/webpack").default;
+
+module.exports = (config, options) => {
+  const singleSpaWebpackConfig = singleSpaAngularWebpack(config, options);
+
+  // Feel free to modify this webpack config however you'd like to
+  return singleSpaWebpackConfig;
+};
+```
+
+#### src/main.single-spa.ts
+
+```typescript
+import { enableProdMode, NgZone } from "@angular/core";
+
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { Router, NavigationStart } from "@angular/router";
+
+import {
+  singleSpaAngular,
+  getSingleSpaExtraProviders,
+} from "single-spa-angular";
+
+import { AppModule } from "./app/app.module";
+import { environment } from "./environments/environment";
+import { singleSpaPropsSubject } from "./single-spa/single-spa-props";
+
+if (environment.production) {
+  enableProdMode();
+}
+
+const lifecycles = singleSpaAngular({
+  bootstrapFunction: (singleSpaProps) => {
+    singleSpaPropsSubject.next(singleSpaProps);
+    return platformBrowserDynamic(getSingleSpaExtraProviders()).bootstrapModule(
+      AppModule
+    );
+  },
+  template: "<csv-root />",
+  Router,
+  NavigationStart,
+  NgZone,
+});
+
+export const bootstrap = lifecycles.bootstrap;
+export const mount = lifecycles.mount;
+export const unmount = lifecycles.unmount;
+```
+
+#### src/single-spa/assets-url.ts
+
+```typescript
+// In single-spa, the assets need to be loaded from a dynamic location,
+// instead of hard coded to `/assets`. We use webpack public path for this.
+// See https://webpack.js.org/guides/public-path/#root
+
+export function assetUrl(url: string): string {
+  // @ts-ignore
+  const publicPath = __webpack_public_path__;
+  const publicPathSuffix = publicPath.endsWith("/") ? "" : "/";
+  const urlPrefix = url.startsWith("/") ? "" : "/";
+
+  return `${publicPath}${publicPathSuffix}assets${urlPrefix}${url}`;
+}
+```
+
+#### src/single-spa/single-spa-props.ts
+
+```typescript
+import { ReplaySubject } from "rxjs";
+import { AppProps } from "single-spa";
+
+export const singleSpaPropsSubject = new ReplaySubject<SingleSpaProps>(1);
+
+// Add any custom single-spa props you have to this type def
+// https://single-spa.js.org/docs/building-applications.html#custom-props
+export type SingleSpaProps = AppProps & {};
+```
+
+#### src/app/empty-route/empty-route.component.ts
+
+```typescript
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "csv-empty-route",
+  template: "",
+})
+export class EmptyRouteComponent {}
+```
