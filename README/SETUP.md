@@ -6,7 +6,7 @@ Below are the documented steps as they are done
 
 ---
 
-## Create a ss root project
+## Step 1: Create a ss root project
 
 ### Run the command `npx create-single-spa`
 
@@ -74,7 +74,7 @@ You may find, depending on your Windows setup you will also need to set the file
 
 ---
 
-## Create a React project
+## Step 2: Create a React project
 
 React is a commonly used framework and has taken the lead in the framework wars. The advantages of a low threshold to start and fast time-to-market has made it the most popular framework to date.
 
@@ -134,7 +134,7 @@ Here we create a route for the React application, in this case called Deals
 
 ---
 
-## How to setup a Utilities bundle
+## Step 3: How to setup a Utilities bundle
 
 A utilities bundle or project is a way to share libraries, styles, or components across applications so they are only ever loaded once.
 
@@ -170,7 +170,7 @@ You can consider a utilities bundle as a gateway to all the other libraries you 
 
 ---
 
-## Add the Utilites project to the application
+## Step 4: Add the Utilites project to the application
 
 ### Add the utilties to the index.ejs file import map
 
@@ -210,7 +210,7 @@ The console log showing in the browser
 
 ---
 
-## Angular Project
+## Step 5: Angular Project
 
 ### Create a new Angular project using the `@angular/cli` `ng new vehicles --routing true --style scss --prefix csv`
 
