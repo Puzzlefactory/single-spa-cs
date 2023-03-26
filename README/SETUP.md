@@ -395,3 +395,15 @@ export const environment = {
   production: false
 };
 ```
+
+
+
+## Angular Project
+
+### Create a new Angular project using the `@angular/cli` `ng new vehicles --routing true --style scss --prefix csv`
+
+#### Notes
+
+* It is important to give the Angular project a prefix that will be unique to that project so Angular components don't overwrite each other
+* If you are adding a project that is above Angular 14 you must specify the Angular project name since that has been removed from the angular.json file
+* 
