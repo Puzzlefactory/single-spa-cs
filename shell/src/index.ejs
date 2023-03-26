@@ -35,9 +35,7 @@
   <script type="systemjs-importmap">
     {
       "imports": {
-        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js",
-        "react": "https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js",
-        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"
+        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js"
       }
     }
   </script>
@@ -54,6 +52,7 @@
         "@single-spa/welcome": "https://unpkg.com/single-spa-welcome/dist/single-spa-welcome.js",
         "@gm-dsaw/root-config": "//localhost:9000/gm-dsaw-root-config.js",
         "@gm-dsaw/deals": "//localhost:9001/gm-dsaw-deals.js",
+        "@gm-dsaw/vehicles": "//localhost:4200/main.js",
         "@gm-dsaw/utilities": "//localhost:9010/gm-dsaw-utilities.js"
       }
     }
@@ -64,7 +63,7 @@
     If you need to support Angular applications, uncomment the script tag below to ensure only one instance of ZoneJS is loaded
     Learn more about why at https://single-spa.js.org/docs/ecosystem-angular/#zonejs
   -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/zone.js@0.11.3/dist/zone.min.js"></script> -->
+   <script src="https://cdn.jsdelivr.net/npm/zone.js@0.11.3/dist/zone.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides@2.2.0/dist/import-map-overrides.js"></script>
   <% if (isLocal) { %>
@@ -74,6 +73,35 @@
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
   <% } %>
+
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+    body {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+    cs-navbar {
+      position: relative;
+      border: solid thin green;
+    }
+    main {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      border: solid thin red;
+      overflow: auto
+    }
+  </style>
 
 </head>
 <body>

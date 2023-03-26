@@ -5,7 +5,7 @@ import {
   constructLayoutEngine,
 } from "single-spa-layout";
 import microfrontendLayout from "./microfrontend-layout.html";
-import {publicApiFunction} from "@gm-dsaw/utilities";
+import { publicApiFunction, NavBar } from "@gm-dsaw/utilities";
 
 publicApiFunction();
 

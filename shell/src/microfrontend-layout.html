@@ -16,13 +16,16 @@
   </route>
 
   -->
-
+<cs-navbar name="cheese" props="name"></cs-navbar>
   <main>
     <route default>
       <application name="@single-spa/welcome"></application>
     </route>
     <route path="deals">
       <application name="@gm-dsaw/deals"></application>
+    </route>
+    <route path="vehicles">
+      <application name="@gm-dsaw/vehicles"></application>
     </route>
   </main>
 </single-spa-router>
